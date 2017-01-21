@@ -14,7 +14,7 @@ namespace customDigi
         {
             Console.Clear();
             timeManager();
-            Thread.Sleep(1000);
+            Thread.Sleep(100);
             getCurrentTime();
         }
         public void timeManager()
@@ -22,7 +22,7 @@ namespace customDigi
             List<char> timeDigits = new List<char>();
             List<string[]> currentTime = new List<string[]>();
             List<string> formattedTime = new List<string>();
-            for(int i = 0; i < 5; i++)
+            for(int i = 0; i < 6; i++)
             {
                 formattedTime.Add("");
             }
@@ -41,6 +41,10 @@ namespace customDigi
             
             for (int i = 0; i < curTime.seconds.Count(); i++)
             {
+                if(i == 2)
+                {
+                    currentTime.Add(pu.priod);
+                }
                 currentTime.Add(getNumString(curTime.seconds[i]));
             }
             foreach(string[] digit in currentTime)
@@ -50,10 +54,11 @@ namespace customDigi
                 formattedTime[2] += digit[2];
                 formattedTime[3] += digit[3];
                 formattedTime[4] += digit[4];
+                formattedTime[5] += digit[5];
             }
             foreach(string _line in formattedTime)
             {
-                Console.Write("\n\r" + _line);
+                pu.write(pu.br + _line, pu.grn);
             }
         }
         public time getTime()
@@ -63,7 +68,9 @@ namespace customDigi
             string[] timeSplit = timeRAW.Split(':');
             thisTime.hours = timeSplit[0].ToCharArray();
             thisTime.minutes = timeSplit[1].ToCharArray();
-            thisTime.seconds = timeSplit[2].Substring(0, 2).ToCharArray();
+            string[] secs = timeSplit[2].Split('.');
+            string second = secs[0] + secs[1];
+            thisTime.seconds = second.Substring(0, 3).ToCharArray();
             return thisTime;
         }
         public string[] getNumString(char digit)

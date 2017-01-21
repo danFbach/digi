@@ -12,6 +12,8 @@ namespace customDigi
         {
             manager run = new manager();
             Console.SetWindowSize(Console.WindowWidth, 8);
+            string user = Environment.UserName;
+            Console.Title = "24-Hour Clock on " + user + "'s PC.";
             run.getCurrentTime();
         }
     }

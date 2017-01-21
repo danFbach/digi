@@ -25,17 +25,31 @@ namespace customDigi
         public string drkYlw = "darkyellow";
         public string wht = "white";
         public string blk = "black";
-        public string[] _zero = { @" _____", @" |   |", @" |   |", @" |   |", @" |___|" };
-        public string[] __one = { @"      ", @"  /|  ", @" / |  ", @"   |  ", @" __|__" };
-        public string[] __two = { @" _____", @"     |", @"    / ", @"  /   ", @" |____" };
-        public string[] three = { @" _____", @"     |", @"  ___|", @"     |", @" ____|" };
-        public string[] _four = { @"      ", @" |   |", @" |___|", @"     |", @"     |" };
-        public string[] _five = { @" _____", @" |    ", @" |___ ", @"     |", @" ____|" };
-        public string[] __six = { @" _____", @" |    ", @" |___ ", @" |   |", @" |___|" };
-        public string[] seven = { @" _____", @" |   |", @"     |", @"     |", @"     |" };
-        public string[] eight = { @" _____", @" |   |", @" |___|", @" |   |", @" |___|" };
-        public string[] _nine = { @" _____", @" |   |", @" |___|", @"     |", @"  ___|" };
-        public string[] colon = { @"      ", @"   |  ", @"      ", @"   |  ", @"      " };
+
+        public string[] _zero = { @" _____ ", @"|     |", @"|  |  |", @"|  |  |", @"|  |  |", @"|_____|" };
+        public string[] __one = { @"     _ ", @"    | |", @"    | |", @"    | |", @"    | |", @"    |_|" };
+        public string[] __two = { @" _____ ", @"| __  |", @"|/ / / ", @"  / /  ", @" / /_/|", @"|_____|" };
+        public string[] three = { @" _____ ", @"|___  |", @"   _| |", @"  |_  |", @" ___| |", @"|_____|" };
+        public string[] _four = { @" _   _ ", @"| | | |", @"| |_| |", @"|___  |", @"    | |", @"    |_|" };
+        public string[] _five = { @" _____ ", @"|  ___|", @"| |___ ", @"|___  |", @" ___| |", @"|_____|" };
+        public string[] __six = { @" _____ ", @"|  ___|", @"| |___ ", @"|  _  |", @"| |_| |", @"|_____|" };
+        public string[] seven = { @" _____ ", @"|  _  |", @"|_| | |", @"    | |", @"    | |", @"    |_|" };
+        public string[] eight = { @" _____ ", @"|     |", @"|  |  |", @"|     |", @"|  |  |", @"|_____|" };
+        public string[] _nine = { @" _____ ", @"|  _  |", @"| |_| |", @"|___  |", @" ___| |", @"|_____|" };
+        public string[] colon = { @"       ", @"   _   ", @"  |_|  ", @"   _   ", @"  |_|  ", @"       " };
+        public string[] priod = { @"       ", @"       ", @"       ", @"       ", @"   _   ", @"  |_|  " };
+
+        //public string[] _zero = { @" _____", @" |   |", @" |   |", @" |   |", @" |___|" };
+        //public string[] __one = { @"      ", @"  /|  ", @" / |  ", @"   |  ", @" __|__" };
+        //public string[] __two = { @" _____", @"     |", @"    / ", @"  /   ", @" |____" };
+        //public string[] three = { @" _____", @"     |", @"  ___|", @"     |", @" ____|" };
+        //public string[] _four = { @"      ", @" |   |", @" |___|", @"     |", @"     |" };
+        //public string[] _five = { @" _____", @" |    ", @" |___ ", @"     |", @" ____|" };
+        //public string[] __six = { @" _____", @" |    ", @" |___ ", @" |   |", @" |___|" };
+        //public string[] seven = { @" _____", @" |   |", @"     |", @"     |", @"     |" };
+        //public string[] eight = { @" _____", @" |   |", @" |___|", @" |   |", @" |___|" };
+        //public string[] _nine = { @" _____", @" |   |", @" |___|", @"     |", @"  ___|" };
+        //public string[] colon = { @"      ", @"   |  ", @"      ", @"   |  ", @"      " };
         /// LINE FORMATTING
         public string br = "\n\r ";
 
@@ -55,10 +69,15 @@ namespace customDigi
             {
                 color = color.ToLower();
             }
+            pickColor(color);
+            Console.Write(input);
+        }
+        public void pickColor(string color)
+        {
+
             switch (color)
             {
                 ///NORMAL COLORS
-
                 case "blue":
                     Console.ForegroundColor = ConsoleColor.Blue;
                     break;
@@ -80,7 +99,6 @@ namespace customDigi
                 case "yellow":
                     Console.ForegroundColor = ConsoleColor.Yellow;
                     break;
-
                 ///DARK COLORS
                 case "darkblue":
                     Console.ForegroundColor = ConsoleColor.DarkBlue;
@@ -112,10 +130,9 @@ namespace customDigi
                     break;
                 ///DEFAULT COLOR
                 default:
-                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.ForegroundColor = ConsoleColor.Yellow;
                     break;
             }
-            Console.Write(input);
         }
     }
 }
