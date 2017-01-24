@@ -41,10 +41,6 @@ namespace customDigi
             
             for (int i = 0; i < curTime.seconds.Count(); i++)
             {
-                if(i == 2)
-                {
-                    currentTime.Add(pu.priod);
-                }
                 currentTime.Add(getNumString(curTime.seconds[i]));
             }
             foreach(string[] digit in currentTime)
@@ -66,11 +62,24 @@ namespace customDigi
             time thisTime = new time();
             string timeRAW = DateTime.Now.TimeOfDay.ToString();
             string[] timeSplit = timeRAW.Split(':');
-            thisTime.hours = timeSplit[0].ToCharArray();
+            int hours;
+            bool result = int.TryParse(timeSplit[0], out hours);
+            if (result)
+            {
+                if (hours > 12)
+                {
+                    hours -= 12;
+                    thisTime.hours = hours.ToString().ToCharArray();
+                    timeSplit[2] = timeSplit[2].Substring(0, 4) + " PM";
+                }
+                else
+                {
+                    thisTime.hours = hours.ToString().ToCharArray();
+                    timeSplit[2] = timeSplit[2].Substring(0, 4) + " AM";
+                }
+            }
             thisTime.minutes = timeSplit[1].ToCharArray();
-            string[] secs = timeSplit[2].Split('.');
-            string second = secs[0] + secs[1];
-            thisTime.seconds = second.Substring(0, 3).ToCharArray();
+            thisTime.seconds = timeSplit[2].ToCharArray();
             return thisTime;
         }
         public string[] getNumString(char digit)
@@ -107,6 +116,21 @@ namespace customDigi
                     break;
                 case '9':
                     currentDigit = pu._nine;
+                    break;
+                case ' ':
+                    currentDigit = pu.space;
+                    break;
+                case '.':
+                    currentDigit = pu.priod;
+                    break;
+                case 'A':
+                    currentDigit = pu.____a;
+                    break;
+                case 'P':
+                    currentDigit = pu.____p;
+                    break;
+                case 'M':
+                    currentDigit = pu.____m;
                     break;
             }
             return currentDigit;
