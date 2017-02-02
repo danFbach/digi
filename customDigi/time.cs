@@ -11,5 +11,6 @@ namespace customDigi
         public char[] hours { get; set; }
         public char[] minutes { get; set; }
         public char[] seconds { get; set; }
+        public char mSecond { get; set; }
     }
 }

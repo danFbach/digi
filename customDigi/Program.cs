@@ -11,10 +11,10 @@ namespace customDigi
         static void Main(string[] args)
         {
             manager run = new manager();
-            Console.SetWindowSize(95, 8);
+            Console.SetWindowSize(80, 10);
             string user = Environment.UserName;
-            Console.Title = "24-Hour Clock on " + user + "'s PC.";
-            run.getCurrentTime();
+            Console.Title = "Hello " + user + "! Welcome to the Custom Digi utility.";
+            run.menu();
         }
     }
 }

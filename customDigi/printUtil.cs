@@ -9,6 +9,7 @@ namespace customDigi
 {
     public class printUtil
     {
+        #region color vars and numbers
         public string blue = "blue";
         public string drkblue = "darkblue";
         public string cyan = "cyan";
@@ -42,29 +43,20 @@ namespace customDigi
         public string[] ____p = { @" _____ ", @"|  _  |", @"| |_| |", @"|  ___|", @"| |    ", @"|_|    " };
         public string[] ____m = { @" _   _ ", @"| \_/ |", @"|     |", @"|     |", @"| | | |", @"|_|_|_|" };
         public string[] space = { @"       ", @"       ", @"       ", @"       ", @"       ", @"       " };
-
-        //public string[] _zero = { @" _____", @" |   |", @" |   |", @" |   |", @" |___|" };
-        //public string[] __one = { @"      ", @"  /|  ", @" / |  ", @"   |  ", @" __|__" };
-        //public string[] __two = { @" _____", @"     |", @"    / ", @"  /   ", @" |____" };
-        //public string[] three = { @" _____", @"     |", @"  ___|", @"     |", @" ____|" };
-        //public string[] _four = { @"      ", @" |   |", @" |___|", @"     |", @"     |" };
-        //public string[] _five = { @" _____", @" |    ", @" |___ ", @"     |", @" ____|" };
-        //public string[] __six = { @" _____", @" |    ", @" |___ ", @" |   |", @" |___|" };
-        //public string[] seven = { @" _____", @" |   |", @"     |", @"     |", @"     |" };
-        //public string[] eight = { @" _____", @" |   |", @" |___|", @" |   |", @" |___|" };
-        //public string[] _nine = { @" _____", @" |   |", @" |___|", @"     |", @"  ___|" };
-        //public string[] colon = { @"      ", @"   |  ", @"      ", @"   |  ", @"      " };
         /// LINE FORMATTING
         public string br = "\n\r ";
-
+        #endregion color vars and numbers
+        #region utils
         public void rest(int time)
         {
             Thread.Sleep(time);
         }
-        public void resetConsole()
+        public void clear()
         {
             Console.Clear();
         }
+        #endregion utils
+        #region write Module
         public void write(string input, string color)
         {
             ///RESET BACKGROUND TO BLACK IF BLACK FOREGROUND IS CHOSEN AT ANY POINT
@@ -76,6 +68,34 @@ namespace customDigi
             pickColor(color);
             Console.Write(input);
         }
+        #endregion write Module
+        #region read modules
+        public ConsoleKeyInfo rk(string _input, string colorOUT, string colorIN)
+        {
+            ///RESET BACKGROUND TO BLACK IF BLACK FOREGROUND IS CHOSEN AT ANY POINT
+            //Console.BackgroundColor = ConsoleColor.Black;
+            ConsoleKeyInfo returnData;
+            if (colorOUT != null)
+            {
+                colorIN = colorIN.ToLower();
+            }
+            pickColor(colorOUT);
+            Console.Write(_input);
+            if (colorIN != null)
+            {
+                colorIN = colorIN.ToLower();
+            }
+            pickColor(colorIN);
+            returnData = Console.ReadKey();
+            if (returnData.Key == ConsoleKey.LeftArrow || returnData.Key == ConsoleKey.RightArrow) { return returnData; }
+            else
+            {
+                rest(500);
+                return returnData;
+            }
+        }
+        #endregion read modules
+        #region Color Module
         public void pickColor(string color)
         {
 
@@ -138,5 +158,6 @@ namespace customDigi
                     break;
             }
         }
+        #endregion Color Module
     }
 }
