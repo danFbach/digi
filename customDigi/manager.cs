@@ -13,7 +13,9 @@ namespace customDigi
         public void menu()
         {
             string user = Environment.UserName;
-            //p.write(p.br + "1) Clock" + p.br + "2) Stopwatch" + p.br + "X) Exit", p.cyan);
+            int windowHeight = 8;
+            Console.SetWindowSize(80, windowHeight);
+            Console.BufferHeight = windowHeight;
             p.write(p.br + "1", p.cyan);
             p.write(") Clock", p.wht);
             p.write(p.br + "2", p.cyan);
@@ -29,11 +31,15 @@ namespace customDigi
                     break;
                 case '2':
                     Console.Title = "Stopwatch on " + user + "'s PC.";
+                    p.clear();
+                    p.write(p.br + "You have selected the stopwatch.", p.cyan);
                     p.write(p.br + "Press ", p.wht);
                     p.write("ENTER", p.grn);
-                    p.write(" now to start the stopwatch. (", p.wht);
+                    p.write(" to start the stopwatch." + p.br + "Press ", p.wht);
+                    p.write("\"L\"", p.grn);
+                    p.write(" to start a new lap." + p.br + "Press", p.wht);
                     p.write("ENTER", p.grn);
-                    ConsoleKeyInfo kk = p.rk(" also stops stopwatch.)", p.wht, p.cyan);
+                    ConsoleKeyInfo kk = p.rk(" to stop the stopwatch.", p.wht, p.cyan);
                     if(kk.Key == ConsoleKey.Enter) { stopwatchHome(kk); }
                     else { p.write(p.br + "Invalid Keystroke.", p.red); }
                     break;
@@ -55,21 +61,13 @@ namespace customDigi
         {
             if(k.Key == ConsoleKey.Enter)
             {
-                TimeSpan startTime = getTime();
-                TimeSpan newTime = new TimeSpan();
-                TimeSpan stopTime = new TimeSpan();
                 time timeChars = new time();
+                List<TimeSpan> laps = new List<TimeSpan>();
                 do
                 {
-                    while (!Console.KeyAvailable)
-                    {
-                        newTime = getTime();
-                        stopTime = newTime.Subtract(startTime);
-                        p.clear();
-                        printTime(formatTime(buildTime(timeToCharArray(stopTime.ToString(), true), true)));
-                        p.rest(100);
-                    }
-                } while (Console.ReadKey(true).Key != ConsoleKey.Enter);
+                    timer(laps);
+                }
+                while (Console.ReadKey(false).Key != ConsoleKey.Enter || Console.ReadKey(false).Key == ConsoleKey.L);
                 p.write(p.br + "Press ", p.wht);
                 p.write("ENTER", p.grn);
                 p.write(" to reset stopwatch or ", p.wht);
@@ -84,6 +82,29 @@ namespace customDigi
                         break;
                 }
             }
+        }
+        public TimeSpan timer(List<TimeSpan> laps)
+        {
+            TimeSpan startTime = getTime();
+            TimeSpan swDifference = new TimeSpan();
+            laps.Add(swDifference);
+            int windowHeight = 8 + (6 * (laps.Count() - 1));
+            Console.BufferHeight = windowHeight;
+            Console.SetWindowSize(80, windowHeight);
+
+            while (!Console.KeyAvailable)
+            {
+                TimeSpan timeUpdate = getTime();
+                swDifference = timeUpdate.Subtract(startTime);
+                laps[laps.Count() - 1] = swDifference;
+                p.clear();
+                foreach(TimeSpan lap in laps)
+                {
+                    printTime(formatTime(buildTime(timeToCharArray(lap.ToString(), true), true)));
+                }
+                p.rest(100);
+            }
+            return swDifference;
         }
         public void getCurrentTime()
         {

@@ -11,7 +11,7 @@ namespace customDigi
         static void Main(string[] args)
         {
             manager run = new manager();
-            Console.SetWindowSize(80, 10);
+            Console.SetWindowSize(80, 8);
             string user = Environment.UserName;
             Console.Title = "Hello " + user + "! Welcome to the Custom Digi utility.";
             run.menu();
